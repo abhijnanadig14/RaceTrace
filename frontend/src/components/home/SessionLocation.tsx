@@ -57,10 +57,10 @@ export default function SessionLocation({ sessions }: SessionLocationProps) {
           alt={`${sessions[0].country_name} flag`}
           className="h-6 w-10 rounded object-cover"
         />
-
         <h3 className="text-3xl font-bold text-white">
           {sessions[0].country_name}
         </h3>
+        hi
       </div>
 
       <p className="mt-2 text-sm text-zinc-500">{sessions[0].location}</p>
