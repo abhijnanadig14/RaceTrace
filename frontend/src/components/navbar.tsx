@@ -8,46 +8,18 @@ const sessions = [
   { value: "2023", label: "2023 Season" },
 ];
 
-type CarData = {
-  brake: number;
-  date: string;
-  driver_number: number;
-  drs: number;
-  meeting_key: number;
-  n_gear: number;
-  rpm: number;
-  session_key: number;
-  speed: number;
-  throttle: number;
+type NavbarProps = {
+  selectedPage: string;
 };
 
-export default function Navbar() {
+export default function Navbar({ selectedPage }: NavbarProps) {
   const [selectedSession, setSelectedSession] = useState(sessions[0]);
-  const [carData, setCarData] = useState<CarData[]>([]);
-
-  useEffect(() => {
-    const fetchCarData = async () => {
-      try {
-        const response = await fetch(
-          `https://api.openf1.org/v1/car_data?driver_number=55&session_key=9159&speed>=315`,
-        );
-        const data = await response.json();
-        setCarData(data);
-      } catch (error) {
-        console.error("Error fetching car data:", error);
-      }
-    };
-
-    fetchCarData();
-  }, []);
-
-  console.log("Car  :", carData); // Log the car data to the console
 
   return (
     <header className="flex h-20 items-center justify-between border-b border-[#2A2E33] bg-[#0E0F11] px-8">
       {/* Page title */}
       <div>
-        <h1 className="text-lg font-semibold text-[#F4F4F5]">HOME</h1>
+        <h1 className="text-lg font-semibold text-[#F4F4F5]">{selectedPage}</h1>
       </div>
 
       {/* Season */}

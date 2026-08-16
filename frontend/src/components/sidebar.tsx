@@ -10,7 +10,15 @@ const menuItems = [
   ["Head To Head", "⚔"],
 ];
 
-export default function Sidebar() {
+type SidebarProps = {
+  selectedPage: string;
+  setSelectedPage: (page: string) => void;
+};
+
+export default function Sidebar({
+  selectedPage,
+  setSelectedPage,
+}: SidebarProps) {
   return (
     <aside className="fixed left-0 top-0 h-screen w-72 border-r border-[#2A2E33] bg-[#15171A]">
       {/* Logo */}
@@ -26,14 +34,17 @@ export default function Sidebar() {
       <nav className="p-4">
         <p className="mb-3 text-xs uppercase text-zinc-500">Navigation</p>
 
-        {menuItems.map(([name, icon], index) => (
+        {menuItems.map(([name, icon]) => (
           <button
             key={name}
             className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm ${
-              index === 0
+              selectedPage === name
                 ? "bg-zinc-800 text-orange-500"
                 : "text-zinc-400 hover:bg-zinc-800 hover:text-white"
             }`}
+            onClick={() => {
+              setSelectedPage(name);
+            }}
           >
             <span>{icon}</span>
             <span>{name}</span>
