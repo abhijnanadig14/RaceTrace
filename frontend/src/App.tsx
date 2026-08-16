@@ -3,13 +3,10 @@ import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 
-// home components
 import NextSession from "./components/home/NextSession";
 import SessionLocation from "./components/home/SessionLocation";
-// import SessionInfo from "./components/home/SessionInfo";
-// import CircuitInfo from "./components/home/CircuitInfo";
-// import DriverStandings from "./components/home/DriverStandings";
-// import ConstructorStandings from "./components/home/ConstructorStandings";
+
+import { getUpcomingSessions } from "./api/openf1";
 
 type Session = {
   session_key: number;
@@ -30,14 +27,7 @@ function App() {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const now = new Date();
-        const dateStart = now.toISOString();
-
-        const response = await fetch(
-          `https://api.openf1.org/v1/sessions?date_start>${dateStart}`,
-        );
-
-        const data = await response.json();
+        const data = await getUpcomingSessions();
 
         setSessions(data);
 
@@ -66,13 +56,6 @@ function App() {
           <div className="mx-auto mt-8 grid max-w-6xl grid-cols-2 gap-4 px-4">
             <NextSession sessions={sessions} />
             <SessionLocation sessions={sessions} />
-            {/* 
-            <SessionLocation sessions={sessions} />
-            <SessionInfo sessions={sessions} />
-            <CircuitInfo sessions={sessions} />
-            <DriverStandings />
-            <ConstructorStandings />
-            */}
           </div>
         )}
       </div>
